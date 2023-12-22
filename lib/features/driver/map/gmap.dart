@@ -211,7 +211,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     currentLocation.latitude!, currentLocation.longitude!),
                 zoom: 12.5,
               )))
-            : Text('');
+            :  controller!.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+          target:
+              LatLng(currentLocation.latitude!, currentLocation.longitude!),
+          zoom: 17.5,
+        )),
+      );
         if (mounted) {
           controller
               ?.showMarkerInfoWindow(MarkerId(sourcePosition!.markerId.value));

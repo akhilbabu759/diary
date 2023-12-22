@@ -63,7 +63,7 @@ class DriverHome extends StatelessWidget {
           Expanded(child: GetBuilder<DriverController>(
             builder: (controller) {
               controller.addPlacedcordenate();
-              return controller.placedvalues.length == 0
+              return controller.placedvalues.isEmpty 
                   ? Text('')
                   : ListView.builder(
                       itemCount: controller.placedvalues.length,
@@ -78,7 +78,13 @@ class DriverHome extends StatelessWidget {
                                 color: const Color.fromARGB(255, 212, 212, 212),
                                 borderRadius: BorderRadius.circular(20)),
                             child: Padding(
-                              padding: const EdgeInsets.all(18.0),
+                              padding: EdgeInsets.only(
+                                  top: 18.0,
+                                  bottom: 15,
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.02,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.02),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -88,19 +94,20 @@ class DriverHome extends StatelessWidget {
                                     child: SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.3,
+                                                0.27,
                                         child: Image.network(
                                           controller.dataList[0][
                                               controller.placedvalues[index]
                                                   ['pname']]['pic'],
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.cover,width:MediaQuery.of(context).size.width *
+                                                0.1 ,
                                         )
 
                                         /// 'https://assets-global.website-files.com/5e9ebc3fff165933f19fbdbe/61b31c9d289e22335b6753b2_Ice%20Cream%202.jpg'),
                                         ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(18.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -110,7 +117,7 @@ class DriverHome extends StatelessWidget {
                                         Text(
                                             'place: ${controller.placeRetailData[index]['place']}'),
                                         Text(
-                                            'ph: ${controller.placeRetailData[index]['number']}'),
+                                            'ph: ${controller.placeRetailData[index]['number']}',style: TextStyle(fontSize: Get.width*0.033),),
                                         GestureDetector(
                                           onTap: () {
                                             log(controller

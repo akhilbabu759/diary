@@ -79,7 +79,7 @@ class DeleverdPage extends StatelessWidget {
                                       ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(top:18.0),
                                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(

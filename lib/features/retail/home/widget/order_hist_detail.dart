@@ -55,11 +55,11 @@ class OrderHistDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(pic,
                         fit: BoxFit.cover,
-                        height: MediaQuery.of(context).size.width * 0.2),
+                        height: MediaQuery.of(context).size.height * 0.17,width: Get.width*0.3,),
                   ),
                   Gap(MediaQuery.of(context).size.width * 0.03),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.only(top:Get.height*0.05),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -68,7 +68,7 @@ class OrderHistDetail extends StatelessWidget {
                           style: TextStyle(
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.05),
-                        ),
+                        ),Gap(5),
 
                         // Text(model.description,overflow: TextOverflow.ellipsis,maxLines: 1,)
                         SizedBox(
@@ -95,7 +95,7 @@ class OrderHistDetail extends StatelessWidget {
                 color: Color.fromARGB(255, 2, 143, 7),
               ),
               const Gap(5),
-              Column(
+              Column(crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     'Booked',
@@ -106,7 +106,7 @@ class OrderHistDetail extends StatelessWidget {
                     // DateFormat('dd/MM/yyyy').format(DateTime.parse(date)),
                     style: TextStyle(
                         color: const Color.fromARGB(255, 196, 195, 195),
-                        fontSize: MediaQuery.of(context).size.width * 0.016),
+                        fontSize: MediaQuery.of(context).size.width * 0.022),
                   ),
                 ],
               ),
@@ -127,7 +127,7 @@ class OrderHistDetail extends StatelessWidget {
                       color: Color.fromARGB(255, 2, 143, 7),
                     ),
               const Gap(5),
-              Column(
+              Column( crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     'Shiped',
@@ -139,14 +139,14 @@ class OrderHistDetail extends StatelessWidget {
                           style: TextStyle(
                               color: const Color.fromARGB(255, 196, 195, 195),
                               fontSize:
-                                  MediaQuery.of(context).size.width * 0.016),
+                                  MediaQuery.of(context).size.width * 0.022),
                         )
                       : Text(
                           '11/10/2023',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 196, 195, 195),
                               fontSize:
-                                  MediaQuery.of(context).size.width * 0.016),
+                                  MediaQuery.of(context).size.width * 0.022),
                         ),
                 ],
               ),
@@ -209,7 +209,7 @@ class OrderHistDetail extends StatelessWidget {
           child: Text(
             'address',
             style:
-                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.023),
+                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.035),
           ),
         ),
         Padding(
@@ -217,7 +217,7 @@ class OrderHistDetail extends StatelessWidget {
           child: Text(
             'kinfra',
             style:
-                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.023),
+                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03),
           ),
         ),
         Padding(
@@ -225,7 +225,7 @@ class OrderHistDetail extends StatelessWidget {
           child: Text(
             'Op police station,koxikode,kerala,',
             style:
-                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.023),
+                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03),
           ),
         ),
         Padding(
@@ -233,7 +233,7 @@ class OrderHistDetail extends StatelessWidget {
           child: Text(
             'pin :384920',
             style:
-                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.023),
+                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03),
           ),
         ),
         Padding(
@@ -241,7 +241,7 @@ class OrderHistDetail extends StatelessWidget {
           child: Text(
             'Ph:7890378929',
             style:
-                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.023),
+                TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03),
           ),
         ),
       ]),

@@ -87,9 +87,11 @@ class RetailHome extends StatelessWidget {
                         decoration: const BoxDecoration(
                           color: Colors.grey,
                         ),
-                        child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
+                        child: ClipRRect(borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       );
                     },
@@ -256,8 +258,8 @@ class RetailHome extends StatelessWidget {
                                                   fontSize:
                                                       MediaQuery.of(context)
                                                               .size
-                                                              .height *
-                                                          0.015,
+                                                              .width *
+                                                          0.032,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -267,8 +269,8 @@ class RetailHome extends StatelessWidget {
                                                     .toList()[index]['details'],
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontSize: 14.0,
+                                                style:  TextStyle(
+                                                  fontSize: Get.width*0.03,
                                                   color: Colors.grey,
                                                 ),
                                               ),

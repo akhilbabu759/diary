@@ -10,7 +10,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     fetchData();
-    getTeacherData();
+    getorderData();
 
     super.onInit();
   }
@@ -36,7 +36,7 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> getTeacherData() async {
+  Future<void> getorderData() async {
     log('message');
     try {
       final DocumentReference orDocument = FirebaseFirestore.instance
@@ -128,6 +128,7 @@ teacherDocument.set(newData, SetOptions(merge: true))
   if (kDebugMode) {
     print("Data added or updated successfully!");
   }
+  getorderData();
 })
     .catchError((error) {
   if (kDebugMode) {

@@ -69,7 +69,9 @@ class AcceptedPage extends StatelessWidget {
                                       const Color.fromARGB(255, 212, 212, 212),
                                   borderRadius: BorderRadius.circular(20)),
                               child: Padding(
-                                padding: const EdgeInsets.all(18.0),
+                                padding:  EdgeInsets.only(top:18.0,left: MediaQuery.of(context).size.width *
+                                                0.02,right: MediaQuery.of(context).size.width *
+                                                0.02,bottom:18),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -91,7 +93,7 @@ class AcceptedPage extends StatelessWidget {
                                           ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.only(top:18.0),
                                       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
@@ -168,11 +170,12 @@ class AcceptedPage extends StatelessWidget {
                                           color: const Color.fromARGB(
                                               208, 4, 157, 9),
                                         ),
-                                        child: const Center(
+                                        child:  Center(
                                           child: Text(
                                             'Deleverd',
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize:MediaQuery.of(context).size.width *
+                                                0.02,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
