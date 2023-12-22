@@ -12,6 +12,7 @@ class OrderHist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(72, 72, 72, 0.729),
         title: const Text('order Histrory'),
         centerTitle: true,
       ),
@@ -23,20 +24,20 @@ class OrderHist extends StatelessWidget {
             return Expanded(
                 child: ListView.builder(
               itemCount: controller.classData!.length,
-              itemBuilder: (context, index) => GestureDetector(onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrderHistDetail(
-                      date: controller.classData!.keys.toList()[index],
-                      details: controller.dataList[0][
-                          controller.classData!.values.toList()[index]
-                              ['pname']]['details'],
-                      pic: controller.dataList[0][controller.classData!.values
-                          .toList()[index]['pname']]['pic'],
-                      pname: controller.classData!.values.toList()[index]
-                          ['pname'],
-                      staus: controller.classData!.values.toList()[index]
-                          ['status'],
-                    ),
-                  )),
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => OrderHistDetail(
+                    date: controller.classData!.keys.toList()[index],
+                    details: controller.dataList[0][controller.classData!.values
+                        .toList()[index]['pname']]['details'],
+                    pic: controller.dataList[0][controller.classData!.values
+                        .toList()[index]['pname']]['pic'],
+                    pname: controller.classData!.values.toList()[index]
+                        ['pname'],
+                    staus: controller.classData!.values.toList()[index]
+                        ['status'],
+                  ),
+                )),
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Material(
@@ -57,19 +58,20 @@ class OrderHist extends StatelessWidget {
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrderHistDetail(
-                      date: controller.classData!.keys.toList()[index],
-                      details: controller.dataList[0][
-                          controller.classData!.values.toList()[index]
-                              ['pname']]['details'],
-                      pic: controller.dataList[0][controller.classData!.values
-                          .toList()[index]['pname']]['pic'],
-                      pname: controller.classData!.values.toList()[index]
-                          ['pname'],
-                      staus: controller.classData!.values.toList()[index]
-                          ['status'],
-                    ),
-                  )),
+                        builder: (context) => OrderHistDetail(
+                          date: controller.classData!.keys.toList()[index],
+                          details: controller.dataList[0][
+                              controller.classData!.values.toList()[index]
+                                  ['pname']]['details'],
+                          pic: controller.dataList[0][
+                              controller.classData!.values.toList()[index]
+                                  ['pname']]['pic'],
+                          pname: controller.classData!.values.toList()[index]
+                              ['pname'],
+                          staus: controller.classData!.values.toList()[index]
+                              ['status'],
+                        ),
+                      )),
                     ),
                   ),
                 ),

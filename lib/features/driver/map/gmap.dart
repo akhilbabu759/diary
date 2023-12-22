@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +33,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
   loc.LocationData? _currentPosition;
   LatLng curLocation = const LatLng(23.0525, 72.5667);
   StreamSubscription<loc.LocationData>? locationSubscription;
-   LocationData? _currentLocations;
+  LocationData? _currentLocations;
 
   Location locations = Location();
+  bool check = true;
 
   @override
   void initState() {
@@ -103,7 +106,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   top: 30,
                   left: 15,
                   child: GestureDetector(
-                    onTap: () {Get.back();
+                    onTap: () {
+                      Get.back();
                       // Navigator.of(context).pushAndRemoveUntil(
                       //     MaterialPageRoute(builder: (context) => MyApp()),
                       //     (route) => false);
@@ -126,6 +130,42 @@ class _NavigationScreenState extends State<NavigationScreen> {
                             color: Colors.white,
                           ),
                           onPressed: () async {
+                            setState(() {
+                              check = false;
+                            });
+                            _navigateToDestination(
+                                destinationPosition!.position.latitude,
+                                destinationPosition!.position.longitude);
+                            // await launchUrl(Uri.parse(
+                            //     'google.navigation:q=${widget.lat}, ${widget.lng}&key=AIzaSyA96nHRuX9rPNMPZ_oNhMynl-4O0zwJAEY'));
+                          },
+                        ),
+                      ),
+                    )),
+                Positioned(
+                    bottom: 80,
+                    right: 10,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.blue),
+                      child: Center(
+                        child: GestureDetector(
+                          child: Icon(
+                            Icons.location_pin,
+                            color: Colors.white,
+                          ),
+                          // Image.network(
+                          //   'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Google_Maps_Logo_2020.svg/2275px-Google_Maps_Logo_2020.svg.png',fit: BoxFit.contain,
+                          // ),
+                          onTap: () async {
+                            setState(() {
+                              check = false;
+                            });
+                            // _navigateToDestination(
+                            //     destinationPosition!.position.latitude,
+                            //     destinationPosition!.position.longitude);
                             await launchUrl(Uri.parse(
                                 'google.navigation:q=${widget.lat}, ${widget.lng}&key=AIzaSyA96nHRuX9rPNMPZ_oNhMynl-4O0zwJAEY'));
                           },
@@ -164,10 +204,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
           LatLng(_currentPosition!.latitude!, _currentPosition!.longitude!);
       locationSubscription =
           location.onLocationChanged.listen((LocationData currentLocation) {
-        controller?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-          target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
-          zoom: 16,
-        )));
+        check
+            ? controller
+                ?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+                target: LatLng(
+                    currentLocation.latitude!, currentLocation.longitude!),
+                zoom: 12.5,
+              )))
+            : Text('');
         if (mounted) {
           controller
               ?.showMarkerInfoWindow(MarkerId(sourcePosition!.markerId.value));
@@ -181,10 +225,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
               position:
                   LatLng(currentLocation.latitude!, currentLocation.longitude!),
               infoWindow: InfoWindow(
-                  title: '${double.parse(
-                          (getDistance(LatLng(widget.lat, widget.lng))
-                              .toStringAsFixed(20)))} km'
-                     ),
+                  title:
+                      '${double.parse((getDistance(LatLng(widget.lat, widget.lng)).toStringAsFixed(20)))} km'),
               onTap: () {
                 print('market tapped');
               },
@@ -199,40 +241,40 @@ class _NavigationScreenState extends State<NavigationScreen> {
   getDirections(LatLng dst) async {
     List<LatLng> polylineCoordinates = [];
     List<dynamic> points = [];
-    try{
+    try {
       log('1');
-      log(curLocation.latitude.toString(),name: 'latitude');
-      log(curLocation.longitude.toString(),name: 'longtitude');
-      log(dst.latitude.toString(),name: 'dstlatitude');
-      log(dst.longitude.toString(),name: 'dtlogtude');
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        'AIzaSyA96nHRuX9rPNMPZ_oNhMynl-4O0zwJAEY',
-        PointLatLng(curLocation.latitude,curLocation.longitude),
-        PointLatLng(dst.latitude, dst.longitude),
-        travelMode: TravelMode.driving
-        );
-        log('2');
-    if (result.points.isNotEmpty) {
-      log('3');
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-        points.add({'lat': point.latitude, 'lng': point.longitude});
-      });
-      log('4');
-    } else {
-      log('5');
-      if (kDebugMode) {
-        print(result.errorMessage);
+      log(curLocation.latitude.toString(), name: 'latitude');
+      log(curLocation.longitude.toString(), name: 'longtitude');
+      log(dst.latitude.toString(), name: 'dstlatitude');
+      log(dst.longitude.toString(), name: 'dtlogtude');
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+          'AIzaSyA96nHRuX9rPNMPZ_oNhMynl-4O0zwJAEY',
+          PointLatLng(curLocation.latitude, curLocation.longitude),
+          PointLatLng(dst.latitude, dst.longitude),
+          travelMode: TravelMode.driving);
+      log('2');
+      if (result.points.isNotEmpty) {
+        log('3');
+        result.points.forEach((PointLatLng point) {
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+          points.add({'lat': point.latitude, 'lng': point.longitude});
+        });
+        log('4');
+      } else {
+        log('5');
+        if (kDebugMode) {
+          print(result.errorMessage);
+        }
       }
-    }
-    log('6');
-    addPolyLine(polylineCoordinates);}catch(e){
+      log('6');
+      addPolyLine(polylineCoordinates);
+    } catch (e) {
       log(e.toString());
     }
     log('7');
   }
 
-  addPolyLine(List<LatLng>polylineCoordinates) {
+  addPolyLine(List<LatLng> polylineCoordinates) {
     PolylineId id = const PolylineId('poly');
     Polyline polyline = Polyline(
       polylineId: id,
@@ -244,7 +286,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     setState(() {});
   }
 
-   double calculateDistance(lat1, lon1, lat2, lon2) {
+  double calculateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var c = cos;
     var a = 0.5 -
@@ -257,6 +299,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     return calculateDistance(curLocation.latitude, curLocation.longitude,
         destposition.latitude, destposition.longitude);
   }
+
   addMarker() {
     setState(() {
       sourcePosition = Marker(
@@ -266,9 +309,67 @@ class _NavigationScreenState extends State<NavigationScreen> {
       );
       destinationPosition = Marker(
         markerId: const MarkerId('destination'),
-        position: const LatLng( 8.18,8.5241),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
+        position: LatLng(widget.lat, widget.lng),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       );
     });
+  }
+
+  Future<void> _navigateToDestination(
+      double destinationLat, double destinationLng) async {
+    final GoogleMapController? controller = await _controller.future;
+    _currentPosition = await location.getLocation();
+    String apiKey =
+        'AIzaSyA96nHRuX9rPNMPZ_oNhMynl-4O0zwJAEY'; // Replace with your Google Maps API key
+    String origin = '${curLocation.latitude},${curLocation.longitude}';
+    String destination = '$destinationLat,$destinationLng';
+    String apiUrl =
+        'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$apiKey';
+
+    var response = await http.get(Uri.parse(apiUrl));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      List<LatLng> points = <LatLng>[];
+      jsonData['routes'][0]['legs'][0]['steps'].forEach((dynamic step) {
+        points.add(LatLng(
+            step['start_location']['lat'], step['start_location']['lng']));
+        points.add(
+            LatLng(step['end_location']['lat'], step['end_location']['lng']));
+      });
+
+      setState(() {
+        destinationPosition = Marker(
+            markerId: MarkerId('destination'),
+            position: LatLng(destinationLat, destinationLng));
+      });
+
+      controller!.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+          target:
+              LatLng(_currentPosition!.latitude!, _currentPosition!.longitude!),
+          zoom: 17.5,
+        )),
+      );
+
+      // showDialog(
+      //   context: context,
+      //   builder: (_) {
+      //     return AlertDialog(
+      //       title: Text('Directions'),
+      //       content: Text('Navigate from current location to the destination!'),
+      //       actions: [
+      //         TextButton(
+      //           onPressed: () {
+      //             Navigator.of(context).pop();
+      //           },
+      //           child: Text('Close'),
+      //         ),
+      //       ],
+      //     );
+      //   },
+      // );
+    } else {
+      print('Failed to fetch directions');
+    }
   }
 }

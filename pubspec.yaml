@@ -52,9 +52,12 @@ dependencies:
   url_launcher: ^6.2.2
   permission_handler:
   geocoding: ^2.1.1
+  http: ^1.1.0
+  
 
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -64,6 +67,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/login/shop.png"
+  min_sdk_android: 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -84,6 +92,10 @@ flutter:
     - assets/login/clock.png
     - assets/login/light-1.png
     - assets/login/light-2.png
+    
+    - assets/login/delevery.png
+    - assets/login/shop.png
+    - assets/hert.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

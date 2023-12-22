@@ -17,8 +17,8 @@ class DriverReg extends StatelessWidget {
     TextEditingController phnC = TextEditingController();
     TextEditingController vechicleName = TextEditingController();
 
-    TextEditingController Email = TextEditingController();
-    TextEditingController Password = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -168,7 +168,7 @@ class DriverReg extends StatelessWidget {
                                             color: Color.fromRGBO(
                                                 143, 148, 251, 1)))),
                                 child: TextField(
-                                  controller: Email,
+                                  controller: email,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: "Email",
@@ -184,7 +184,7 @@ class DriverReg extends StatelessWidget {
                                             color: Color.fromRGBO(
                                                 143, 148, 251, 1)))),
                                 child: TextField(
-                                  controller: Password,
+                                  controller: password,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: "Password",
@@ -212,30 +212,30 @@ class DriverReg extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         log(nameC.text +
-                            Email.text +
+                            email.text +
                             phnC.text +
                             vechicleName.text +
                           
-                            Password.text);
+                            password.text);
 
-                        if(nameC.text!=''&&Email.text!=''&&phnC.text!=''&&vechicleName.text!=''&&Password.text!='') {
+                        if(nameC.text!=''&&email.text!=''&&phnC.text!=''&&vechicleName.text!=''&&password.text!='') {
                           DriverDataSource().registerWithEmailAndPassword(
                               nameC.text,
                               phnC.text,
                               vechicleName.text,
                              
-                              Email.text,
-                              Password.text);
+                              email.text,
+                              password.text);
                         //  Navigator.of(context).push(MaterialPageRoute(
                         //    builder: (context) => BottoNav(),
                         //  ));
                         } else {
                             log(nameC.text +
-                            Email.text +
+                            email.text +
                             phnC.text +
                             vechicleName.text +
                            
-                            Password.text);
+                            password.text);
 
                           QuickAlert.show(
                             context: context,

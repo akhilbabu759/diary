@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
-
+import 'package:get/get.dart';
 
 class OrderHistDetail extends StatelessWidget {
   const OrderHistDetail(
@@ -22,9 +21,11 @@ class OrderHistDetail extends StatelessWidget {
     return Scaffold(
       // backgroundColor: ProBlackStyle().grayblackProblack,
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(72, 72, 72, 0.729),
         elevation: 0.2,
         //backgroundColor: ProBlackStyle().grayblackProblack,
         leading: GestureDetector(
+          onTap: () => Get.back(),
           child: const Icon(
             Icons.arrow_back_ios,
             // color: ProBlackStyle().whitecloProBlack,
@@ -48,10 +49,15 @@ class OrderHistDetail extends StatelessWidget {
                 color: Color.fromARGB(255, 240, 240, 240),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Image.network(pic,
-                      height: MediaQuery.of(context).size.width * 0.2),
-                  Gap(MediaQuery.of(context).size.width * 0.05),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(pic,
+                        fit: BoxFit.cover,
+                        height: MediaQuery.of(context).size.width * 0.2),
+                  ),
+                  Gap(MediaQuery.of(context).size.width * 0.03),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -66,7 +72,7 @@ class OrderHistDetail extends StatelessWidget {
 
                         // Text(model.description,overflow: TextOverflow.ellipsis,maxLines: 1,)
                         SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                            width: MediaQuery.of(context).size.width * 0.5,
                             child: Text(
                               details,
                               overflow: TextOverflow.ellipsis,
@@ -95,8 +101,9 @@ class OrderHistDetail extends StatelessWidget {
                     'Booked',
                     style: TextStyle(color: Color.fromARGB(255, 19, 19, 19)),
                   ),
-                  Text(date,
-                   // DateFormat('dd/MM/yyyy').format(DateTime.parse(date)),
+                  Text(
+                    date,
+                    // DateFormat('dd/MM/yyyy').format(DateTime.parse(date)),
                     style: TextStyle(
                         color: const Color.fromARGB(255, 196, 195, 195),
                         fontSize: MediaQuery.of(context).size.width * 0.016),
@@ -238,7 +245,6 @@ class OrderHistDetail extends StatelessWidget {
           ),
         ),
       ]),
-     
     );
   }
 }

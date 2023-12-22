@@ -109,11 +109,29 @@ class DreawerWidget extends StatelessWidget {
               Navigator.pop(context);
               // Add your code to navigate or perform actions related to contact
             },
-          ),GestureDetector(
+          ),
+          GestureDetector(
             onTap: () {
-              Get.offAll(const LoginPage())
+              Get.defaultDialog(buttonColor: (Colors.blue),
+                title: 'Log out',
+                content: Text('Are you sure?'),
+                textConfirm: 'yes',
+                textCancel: 'No',
+               // cancelTextColor: Colors.white,
+                confirmTextColor: Colors.white,
+                onConfirm: () {
+                  // Do something when the user confirms
+                  Get.offAll(const LoginPage()); // Close the dialog
+                },
+                onCancel: () => Get.back(),
+              );
+
               ;
-            },child: const Icon(Icons.logout),
+            },
+            child: const ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Log out'),
+            ),
           )
         ],
       ),

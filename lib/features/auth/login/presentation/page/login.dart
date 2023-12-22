@@ -90,7 +90,34 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ),
                               )),
-                        )
+                        ),
+                        // Positioned(
+                        //     right: 10,
+                        //     top: 30,
+                        //     width: 50,
+                        //     height: 50,
+                        //     child: cont.usercheck
+                        //         ? GestureDetector(
+                        //             onTap: () {
+                        //               controller
+                        //                   .userchange(!controller.usercheck);
+                        //             },
+                        //             child: Card(
+                        //                 color: Color.fromRGBO(225, 225, 225, 1),
+                        //                 child: Center(
+                        //                     child: Icon(
+                        //                   Icons.person_4,
+                        //                   size: 40,
+                        //                   color:
+                        //                       Color.fromRGBO(143, 148, 251, 1),
+                        //                 ))),
+                        //           )
+
+                        //         ///Image.asset('assets/login/shop.png')
+                        //         : Icon(Icons.shop)
+
+                        //     ///Image.asset('assets/login/delevery.png')
+                        //     )
                       ],
                     ),
                   ),
@@ -151,15 +178,7 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        FadeInUp(
-                          duration: const Duration(milliseconds: 1900),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                controller.userchange(!controller.usercheck);
-                              },
-                              child: Text(
-                                  'Login as ${cont.usercheck ? 'Retail ' : 'Driver '}')),
-                        ),
+                        
                         const SizedBox(
                           height: 30,
                         ),
@@ -167,7 +186,7 @@ class LoginPage extends StatelessWidget {
                           onTap: () async {
                             final FirebaseAuth firebaseAuth =
                                 FirebaseAuth.instance;
-                             
+
                             try {
                               if (email.text != '' &&
                                   pass.text != '' &&
@@ -195,7 +214,7 @@ class LoginPage extends StatelessWidget {
                                         if (document['email'] == email.text) {
                                           log('hai 6');
                                           Get.offAll(const BottoNav());
-                                         
+
                                           a = false;
                                         }
                                         log('hai 16');
@@ -204,7 +223,7 @@ class LoginPage extends StatelessWidget {
                                       if (a) {
                                         log('hai 8');
                                         Get.snackbar('failed',
-                                            'There is no account in our Dirver database ');
+                                            'There is no account in our Dirver database ',backgroundColor: const Color.fromARGB(177, 255, 193, 7));
                                         break;
                                       } else {
                                         log('hai 7');
@@ -224,13 +243,13 @@ class LoginPage extends StatelessWidget {
                                       for (var document in orderSnapshot.docs) {
                                         if (document['email'] == email.text) {
                                           Get.offAll(const RetailHome());
-                                          
+
                                           a = false;
                                         }
                                       }
                                       if (a) {
-                                       Get.snackbar('failed',
-                                            'There is no account in our Retail database ');
+                                        Get.snackbar('failed',
+                                            'There is no account in our Retail database ',backgroundColor: const Color.fromARGB(177, 255, 193, 7));
                                         break;
                                       } else {
                                         break;
@@ -240,11 +259,11 @@ class LoginPage extends StatelessWidget {
                                 }
                               } else {
                                 Get.snackbar('Enter correct email format',
-                                    'Entre email and password properly');
+                                    'Entre email and password properly',backgroundColor: const Color.fromARGB(177, 255, 193, 7));
                               }
                             } on FirebaseAuthException catch (e) {
                               Get.snackbar('Enter correct email format',
-                                  'Entre email and password properly');
+                                  'Entre email and password properly',backgroundColor: const Color.fromARGB(177, 255, 193, 7));
                               log(e.toString());
                             }
                           },
@@ -267,9 +286,28 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ),
                               )),
+                        ), const SizedBox(
+                          height: 20,
+                        ),
+                        const Text('OR',style: TextStyle(color: Color.fromRGBO(150, 150, 150, 1))), const SizedBox(
+                          height: 10,
+                        ),
+                        FadeInUp(
+                          duration: const Duration(milliseconds: 1900),
+                          child:GestureDetector(onTap: () =>controller.userchange(!controller.usercheck) ,
+                            child: Text('Login as ${cont.usercheck ? 'Retail ' : 'Driver '}',style: const TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),))
+                          //  ElevatedButton(
+                          //     style: ButtonStyle(
+                          //         backgroundColor: MaterialStatePropertyAll(
+                          //             Color.fromRGBO(143, 148, 251, 1))),
+                          //     onPressed: () {
+                          //       controller.userchange(!controller.usercheck);
+                          //     },
+                          //     child: Text(
+                          //         'Login as ${cont.usercheck ? 'Retail ' : 'Driver '}')),
                         ),
                         const SizedBox(
-                          height: 70,
+                          height: 40,
                         ),
                         GestureDetector(
                           onTap: () =>
@@ -289,7 +327,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             );
